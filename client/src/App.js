@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import "./App.css";
-import LogInPage from "./components/LogInPage/loginPage";
+import LogInPage from "./pages/Login";
 
 function App() {
   return (
