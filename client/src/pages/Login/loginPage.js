@@ -10,14 +10,15 @@ const LogInPage = () => {
         <form className="d-flex mt-5">
           <input type="text" className="form-control" value={"email"} />
           <input type="text" className="form-control" value={"password"} />
-          <Link to={"/tweets"} className="nav-link btn btn-success">
+          <Link to={"/posts"} className="nav-link btn btn-success">
             Log in
           </Link>
         </form>
         <Switch>
-          <Route path="/tweets" component={HomePage} />
+          <Route path="/posts" component={HomePage} />
         </Switch>
       </div>
     </Router>
   );
 };
+export default LogInPage
