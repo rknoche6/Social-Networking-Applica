@@ -18,8 +18,10 @@ const AddPost = () => {
   };
   return (
     <div className="addPost-Container">
-      <h1>Add Post</h1>
-      <form className="d-flex mt-5" onSubmit={onSubmitForm}>
+      <center>
+        <h1>Add Post</h1>
+      </center>
+      <form className="d-flex" onSubmit={onSubmitForm}>
         <input
           type="text"
           id="add-post"
