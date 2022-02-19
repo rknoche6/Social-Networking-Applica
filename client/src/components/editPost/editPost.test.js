@@ -5,13 +5,18 @@ import EditPost from "./editPost";
 describe("EditPost", () => {
   let wrapper;
 
-  beforeEach(() => (wrapper = shallow(<EditPost />)));
+  beforeEach(
+    () =>
+      (wrapper = shallow(
+        <EditPost post={{ post_id: 1, description: "Post" }} />
+      ))
+  );
 
-  it("should render a <div />", () => {
-    expect(wrapper.find("div").length).toEqual(1);
+  it("should render a <button />", () => {
+    expect(wrapper.find("button").length).toEqual(4);
   });
 
-  it("should render a <h1 />", () => {
-    expect(wrapper.find("h1").length).toEqual(1);
+  it("should render a <div />", () => {
+    expect(wrapper.find("div").length).toEqual(7);
   });
 });
