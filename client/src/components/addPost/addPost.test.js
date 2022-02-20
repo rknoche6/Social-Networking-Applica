@@ -23,6 +23,6 @@ describe("AddPost", () => {
     const eventObj = { target: { value: "test post" } };
     expect(wrapper.find("input.form-control").props().value).toBe("");
     wrapper.find("input.form-control").simulate("change", eventObj);
-    expect(wrapper.find("input.form-control").props().value).toBe("test tweet");
+    expect(wrapper.find("input.form-control").props().value).toBe("test post");
   });
 });
