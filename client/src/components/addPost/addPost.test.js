@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import AddPost from "./addPost";
 
 describe("AddPost", () => {
@@ -25,4 +25,12 @@ describe("AddPost", () => {
     wrapper.find("input.form-control").simulate("change", eventObj);
     expect(wrapper.find("input.form-control").props().value).toBe("test post");
   });
+});
+
+it("calls onSubmit prop function when form is submitted", () => {
+  const onSubmitForm = jest.fn();
+  const wrapper = mount(<form onSubmit={onSubmitForm} />);
+  const form = wrapper.find("form");
+  form.simulate("submit");
+  expect(onSubmitForm).toHaveBeenCalledTimes(1);
 });

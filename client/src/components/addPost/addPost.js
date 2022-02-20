@@ -29,7 +29,7 @@ const AddPost = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <button className="btn btn-success">Post</button>
+        <button className="btn btn-primary">Post</button>
       </form>
     </div>
   );
