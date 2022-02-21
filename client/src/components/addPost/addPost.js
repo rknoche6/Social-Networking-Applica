@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import auth from './../../auth'
 
-const AddPost = () => {
+const AddPost = (props) => {
   const [description, setDescription] = useState("");
   const onSubmitForm = async (e) => {
     e.preventDefault();
@@ -11,10 +12,10 @@ const AddPost = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      window.location = "/";
     } catch (error) {
       console.error(error.message);
     }
+    setDescription("")
   };
   return (
     <div className="addPost-Container">
@@ -24,12 +25,16 @@ const AddPost = () => {
       <form className="d-flex" onSubmit={onSubmitForm}>
         <input
           type="text"
-          id="add-post"
+          id="add-tweet"
           className="form-control"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <button className="btn btn-primary">Post</button>
+        {/* <button className="btn btn-primary">Post</button> */}
+        <button
+
+          className="btn btn-success"
+        >Post</button>
       </form>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import EditPost from "../editPost/editPost";
+import editPost from "./../editPost/editPost";
 
 const AllPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -26,7 +26,7 @@ const AllPosts = () => {
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [posts]);
 
   return (
     <div className="all-posts-container">
@@ -38,7 +38,7 @@ const AllPosts = () => {
           <div className="card-body">
             <h4 className="card-title">{post.description}</h4>
             <p className="card-text">{}</p>
-            <EditPost post={post} />
+            <editPost post={post} />
             <button
               className="btn btn-danger m-1"
               onClick={() => deletePost(post.post_id)}
