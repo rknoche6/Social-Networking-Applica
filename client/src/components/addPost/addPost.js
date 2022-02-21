@@ -1,22 +1,34 @@
 import React, { useState } from "react";
-import auth from './../../auth'
+
 
 const AddPost = (props) => {
   const [description, setDescription] = useState("");
+  const [userId, setUserId] = useState("")
+
+  const getUserId = () => {
+    return props.users.filter(user => user.username === props.username)[0].user_id
+  }
+
+
+
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
       const body = { description };
-      const response = await fetch("http://localhost:5000/posts", {
+      const response = await fetch(`http://localhost:5000/posts/${getUserId()}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
+      props.setRender(true)
+
     } catch (error) {
       console.error(error.message);
     }
     setDescription("")
   };
+
+
   return (
     <div className="addPost-Container">
       <center>
@@ -25,12 +37,11 @@ const AddPost = (props) => {
       <form className="d-flex" onSubmit={onSubmitForm}>
         <input
           type="text"
-          id="add-tweet"
+          id="add-post"
           className="form-control"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        {/* <button className="btn btn-primary">Post</button> */}
         <button
 
           className="btn btn-success"
