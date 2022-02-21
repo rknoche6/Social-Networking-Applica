@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import editPost from "./../editPost/editPost";
+import EditPost from "./../editPost/editPost";
 
 const AllPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -18,7 +18,7 @@ const AllPosts = () => {
     try {
       const response = await fetch("http://localhost:5000/posts");
       const jsonData = await response.json();
-      setPosts(jsonData);
+      setPosts(jsonData.reverse());
     } catch (error) {
       console.error(error.message);
     }
@@ -33,12 +33,12 @@ const AllPosts = () => {
       <center>
         <h1>Posts</h1>
       </center>
-      {posts.map((post) => (
+      {posts.reverse().map((post) => (
         <div className="card" key={post.post_id}>
           <div className="card-body">
             <h4 className="card-title">{post.description}</h4>
             <p className="card-text">{}</p>
-            <editPost post={post} />
+            <EditPost post={post} />
             <button
               className="btn btn-danger m-1"
               onClick={() => deletePost(post.post_id)}
