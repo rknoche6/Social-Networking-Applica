@@ -1,13 +1,14 @@
 import React from "react";
-import AddPost from "../../components/addPost/addPost";
-import AllPosts from "../../components/feed/feed";
+import AddPost from "./../AddPost/addPost";
+import AllPosts from "./../AllPosts/allPosts";
 
-const HomePage = () => {
+const HomePage = (props) => {
+  console.log("homeeee", props.username)
   return (
     <div id="homepage-container">
       <AddPost />
       <br></br>
-      <AllPosts />
+      <AllPosts username={props.username} />
     </div>
   );
 };

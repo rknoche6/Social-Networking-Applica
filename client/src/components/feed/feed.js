@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import EditPost from "./../editPost/editPost";
+import EditPost from "./../EditPost/editPost";
 
-const AllPosts = () => {
+const AllPosts = (props) => {
   const [posts, setPosts] = useState([]);
 
   const deletePost = async (id) => {
@@ -36,6 +36,7 @@ const AllPosts = () => {
       {posts.reverse().map((post) => (
         <div className="card" key={post.post_id}>
           <div className="card-body">
+            <h4 className="card-title">{props.username}</h4>
             <h4 className="card-title">{post.description}</h4>
             <p className="card-text">{}</p>
             <EditPost post={post} />
