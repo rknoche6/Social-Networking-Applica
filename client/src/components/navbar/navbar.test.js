@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow, render } from "enzyme";
-import Navigation from "./navigation";
+import Navigation from "./navBar";
 
 describe("HomePage", () => {
   let wrapper;
