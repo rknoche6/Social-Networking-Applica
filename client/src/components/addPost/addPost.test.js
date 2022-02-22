@@ -11,19 +11,15 @@ describe("AddPost", () => {
     expect(wrapper.find("div").length).toEqual(1);
   });
 
-  it("should render a <h1 />", () => {
-    expect(wrapper.find("h1").length).toEqual(1);
-  });
-
   it("should render a <form />", () => {
     expect(wrapper.find("form").length).toEqual(1);
   });
 
   it("adds a post via the online form", () => {
     const eventObj = { target: { value: "test post" } };
-    expect(wrapper.find("input.form-control").props().value).toBe("");
-    wrapper.find("input.form-control").simulate("change", eventObj);
-    expect(wrapper.find("input.form-control").props().value).toBe("test post");
+    expect(wrapper.find("input.form").props().value).toBe("");
+    wrapper.find("input.form").simulate("change", eventObj);
+    expect(wrapper.find("input.form").props().value).toBe("test post");
   });
 });
 
