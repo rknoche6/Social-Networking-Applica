@@ -3,7 +3,6 @@ import React, { useState } from "react";
 
 const AddPost = (props) => {
   const [description, setDescription] = useState("");
-  const [userId, setUserId] = useState("")
 
   const getUserId = () => {
     return props.users.filter(user => user.username === props.username)[0].user_id
@@ -32,21 +31,22 @@ const AddPost = (props) => {
   return (
     <div className="addPost-Container">
       <center>
-        <h1>Add Post</h1>
-      </center>
-      <form className="d-flex" onSubmit={onSubmitForm}>
-        <input
-          type="text"
-          id="add-post"
-          className="form-control"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <button
+        <br></br>
+        <form className="d-flex" onSubmit={onSubmitForm}>
+          <input
+            type="text"
+            id="add-post"
+            className="form w-50 h-1000000"
+            placeholder="Whats happening?"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <button
 
-          className="btn btn-success"
-        >Post</button>
-      </form>
+            className="btn btn-outline-primary"
+          >Add Post</button>
+        </form>
+      </center>
     </div>
   );
 };

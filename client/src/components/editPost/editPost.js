@@ -1,31 +1,41 @@
 import React, { useState } from "react";
+import Alert from 'react-bootstrap/Alert'
 
 const EditPost = (props) => {
   const [description, setDescription] = useState(props.post.description);
+  const [error, setError] = useState(false)
 
   const updateDescription = async (e) => {
     e.preventDefault();
-    try {
-      const body = { description };
-      const response = await fetch(
-        `http://localhost:5000/posts/${props.post.post_id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-        }
-      );
-      props.setRender(true)
-      // window.location = "/";
-    } catch (error) {
-      console.error(error.message);
+    if (props.userId === props.postUserId) {
+      try {
+        const body = { description };
+        const response = await fetch(
+          `http://localhost:5000/posts/${props.post.post_id}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          }
+        );
+        props.setRender(true)
+        // window.location = "/";
+      } catch (error) {
+        console.error(error.message);
+      }
+    } else {
+      setError(true)
     }
   };
   return (
-    <div className="all-posts-container">
+    <div className="edit-container">
+      {error &&
+        <Alert variant={"danger"}>
+          Not your post to update
+      </Alert>}
       <button
         type="button"
-        className="btn btn-warning"
+        className="btn btn-sm btn-outline-dark"
         data-toggle="modal"
         data-target={`#id${props.post.post_id}`}
       >
