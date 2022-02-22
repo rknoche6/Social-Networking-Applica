@@ -1,5 +1,5 @@
-CREATE DATABASE facebook;
-CREATE DATABASE facebook_test;
+CREATE DATABASE facebook_clone;
+CREATE DATABASE facebook_clone_test;
 
 CREATE TABLE posts(
   post_id SERIAL PRIMARY KEY,

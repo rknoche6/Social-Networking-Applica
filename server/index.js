@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const bcrypt = require('bcrypt')
 const port = process.env.NODE_ENV == "test" ? 5001 : 5000;
 let pool;
 
@@ -17,15 +18,16 @@ app.use(express.json());
 
 // create a post
 
-app.post("/posts", async (req, res) => {
+app.post("/posts/:id", async (req, res) => {
   try {
     const { description } = req.body;
-    const newPost = await pool.query(
-      "INSERT INTO posts (description) VALUES ($1) RETURNING * ",
-      [description]
+    const { id } = req.params;
+    const newpost = await pool.query(
+      "INSERT INTO posts (description, user_fk_id) VALUES ($1, $2) RETURNING * ",
+      [description, id]
     );
 
-    res.json(newPost.rows);
+    res.json(newpost.rows);
   } catch (err) {
     console.error(err.message);
   }
@@ -35,9 +37,9 @@ app.post("/posts", async (req, res) => {
 
 app.get("/posts", async (req, res) => {
   try {
-    const allPosts = await pool.query("SELECT * FROM posts;");
+    const allposts = await pool.query("SELECT * FROM posts;");
 
-    res.json(allPosts.rows);
+    res.json(allposts.rows);
   } catch (err) {
     console.error(err.message);
   }
@@ -65,12 +67,12 @@ app.put("/posts/:id", async (req, res) => {
     const { id } = req.params;
     const { description } = req.body;
 
-    const updatePost = await pool.query(
+    const updatepost = await pool.query(
       "UPDATE posts SET description = $1 WHERE post_id = $2",
       [description, id]
     );
 
-    res.json("Post was updated");
+    res.json("post was updated");
   } catch (err) {
     console.error(err.messsage);
   }
@@ -81,12 +83,12 @@ app.put("/posts/:id", async (req, res) => {
 app.delete("/posts/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const deletePost = await pool.query(
+    const deletepost = await pool.query(
       "DELETE FROM posts WHERE post_id= $1",
       [id]
     );
 
-    res.json("Post was deleted");
+    res.json("post was deleted");
   } catch (error) {
     console.error(error);
   }
@@ -128,9 +130,32 @@ app.post("/users", async (req, res) => {
       "INSERT INTO Users (email, username, password) VALUES($1,$2,$3) RETURNING *",
       [email, username, password]
     );
-    res.json(newUser.rows);
+    res.json(newUser.rows[0]);
   } catch (err) {
-    console.erroro(err);
+    console.error(err);
+    res.json("Failed")
+  }
+});
+
+app.post("/users/:username", async (req, res) => {
+  try {
+    const { username } = req.params
+    const user = await pool.query("SELECT * FROM Users WHERE username = $1", [
+      username,
+    ]);
+    const { password } = req.body
+    if (user.rows[0]) {
+      let auth = user.rows[0].password === password;
+      if (auth) {
+        res.json(auth);
+      } else {
+        res.json("Failed");
+      }
+    } else {
+      res.json("Failed");
+    }
+  } catch (err) {
+    console.error(err);
   }
 });
 
